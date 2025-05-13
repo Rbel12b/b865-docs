@@ -7,8 +7,9 @@ The **B865** is a homebrew 8-bit computer built on a breadboard, featuring a cus
 - **Data Bus**: 8-bit
 - **Address Bus**: 16-bit
 - **Registers**:
-  - 8-bit: ACC, SP, X, Y, R0, R1, R2, R3
+  - 8-bit: A, SP, X, Y, R0, R1, R2, R3
   - 16-bit: PC
+  - Status register(S): (3-bit: Carry, Zero, Negative)
 - **Memory**: 64KB (32k ROM + 32k RAM)
 
 ## Instruction Set
