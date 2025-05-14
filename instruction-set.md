@@ -10,72 +10,40 @@
 
 ## Instruction List
 
-| Mnemonic                                              | binary   |
-|-------------------------------------------------------|----------|
-| [RST](#rst-reset)                                     | 00000000 |
-| [MOV R,R](#mov-rr-move-register-to-register)          | 00000001 |
-| [MOV R,A](#mov-ra-move-register-to-address)           | 00000010 |
-| [MOV A,A](#mov-aa-move-address-to-address)            | 00000011 |
-| [MOV A,R](#mov-ar-move-address-to-register)           | 00000100 |
-| [BRH flags, A](#brh-flags-a-branch-on-flags)          | 00000101 |
-| [DEX](#dex-decrement-x)                               | 00000110 |
-| illegal                                               | 00000111 |
-| [ADD R, A](#add-r-a-add-register-and-address)         | 00001000 |
-| [SUB R, A](#sub-r-a-subtract-address-from-register)   | 00001001 |
-| [INX](#inx-increment-x)                               | 00001010 |
-| [NOP](#nop-no-operation)                              | 00001011 |
-| [RSH R](#rsh-r-right-shift-register)                  | 00001100 |
-| [LSH R](#lsh-r-left-shift-register)                   | 00001101 |
-| [ROR R](#ror-r-rotate-right-register)                 | 00001110 |
-| [ROL R](#rol-r-rotate-left-register)                  | 00001111 |
-| [ADD R, R](#add-r-r-add-register-to-register)         | 00010000 |
-| [XNOR R, R](#xnor-r-r-xnor-registers)                 | 00010001 |
-| [SUB R, R](#sub-r-r-subtract-register-from-register)  | 00010010 |
-| [XOR R, R](#xor-r-r-xor-registers)                    | 00010011 |
-| [OR R, R](#or-r-r-or-registers)                       | 00010100 |
-| [NOR R, R](#nor-r-r-nor-registers)                    | 00010101 |
-| [NAND R, R](#nand-r-r-nand-registers)                 | 00010110 |
-| [AND R, R](#and-r-r-and-registers)                    | 00010111 |
-| [ADC R, R](#adc-r-r-add-with-carry)                   | 00011000 |
-| [PHR R](#phr-r-push-register)                         | 00011001 |
-| [SBC R, R](#sbc-r-r-subtract-with-carry)              | 00011010 |
-| [PLR R](#plr-r-pull-register)                         | 00011011 |
-| [JSR](#jsr-jump-to-subroutine)                        | 00011100 |
-| [CMP R,R](#cmp-rr-compare-registers)                  | 00011101 |
-| [DEC R](#dec-r-decrement-register)                    | 00011110 |
-| [INC R](#inc-r-increment-register)                    | 00011111 |
-| [JMP A](#jmp-a-jump-to-address)                       | 00100000 |
-| reserved                                              | 00100001 |
-| reserved                                              | 00100010 |
-| [CLC](#clc-clear-carry)                               | 00100011 |
-| reserved                                              | 00100100 |
-| reserved                                              | 00100101 |
-| [STC](#stc-set-carry)                                 | 00100110 |
-| illegal                                               | 00100111 |
-| reserved                                              | 00101000 |
-| reserved                                              | 00101001 |
-| illegal                                               | 00101010 |
-| [HLT](#hlt-halt)                                      | 00101011 |
-| reserved                                              | 00101100 |
-| reserved                                              | 00101101 |
-| reserved                                              | 00101110 |
-| reserved                                              | 00101111 |
-| reserved                                              | 00110000 |
-| reserved                                              | 00110001 |
-| reserved                                              | 00110010 |
-| reserved                                              | 00110011 |
-| reserved                                              | 00110100 |
-| reserved                                              | 00110101 |
-| reserved                                              | 00110110 |
-| reserved                                              | 00110111 |
-| reserved                                              | 00111000 |
-| reserved                                              | 00111001 |
-| reserved                                              | 00111010 |
-| reserved                                              | 00111011 |
-| [RTS](#rts-return-from-subroutine)                    | 00111100 |
-| reserved                                              | 00111101 |
-| reserved                                              | 00111110 |
-| reserved                                              | 00111111 |
+| Mnemonic                                              | binary   | Mnemonic                                              | binary   |
+|-------------------------------------------------------|----------|--------------------------------------------------------|----------|
+| [RST](#rst-reset)                                     | 00000000 | [JMP A](#jmp-a-jump-to-address)                       | 00100000 |
+| [MOV R,R](#mov-rr-move-register-to-register)          | 00000001 | reserved                                              | 00100001 |
+| [MOV R,A](#mov-ra-move-register-to-address)           | 00000010 | reserved                                              | 00100010 |
+| [MOV A,A](#mov-aa-move-address-to-address)            | 00000011 | [CLC](#clc-clear-carry)                               | 00100011 |
+| [MOV A,R](#mov-ar-move-address-to-register)           | 00000100 | reserved                                              | 00100100 |
+| [BRH flags, A](#brh-flags-a-branch-on-flags)          | 00000101 | reserved                                              | 00100101 |
+| [DEX](#dex-decrement-x)                               | 00000110 | [STC](#stc-set-carry)                                 | 00100110 |
+| illegal                                               | 00000111 | illegal                                               | 00100111 |
+| [ADD R, A](#add-r-a-add-register-and-address)         | 00001000 | reserved                                              | 00101000 |
+| [SUB R, A](#sub-r-a-subtract-address-from-register)   | 00001001 | reserved                                              | 00101001 |
+| [INX](#inx-increment-x)                               | 00001010 | illegal                                               | 00101010 |
+| [NOP](#nop-no-operation)                              | 00001011 | [HLT](#hlt-halt)                                      | 00101011 |
+| [RSH R](#rsh-r-right-shift-register)                  | 00001100 | reserved                                              | 00101100 |
+| [LSH R](#lsh-r-left-shift-register)                   | 00001101 | reserved                                              | 00101101 |
+| [ROR R](#ror-r-rotate-right-register)                 | 00001110 | reserved                                              | 00101110 |
+| [ROL R](#rol-r-rotate-left-register)                  | 00001111 | reserved                                              | 00101111 |
+| [ADD R, R](#add-r-r-add-register-to-register)         | 00010000 | reserved                                              | 00110000 |
+| [XNOR R, R](#xnor-r-r-xnor-registers)                 | 00010001 | reserved                                              | 00110001 |
+| [SUB R, R](#sub-r-r-subtract-register-from-register)  | 00010010 | reserved                                              | 00110010 |
+| [XOR R, R](#xor-r-r-xor-registers)                    | 00010011 | reserved                                              | 00110011 |
+| [OR R, R](#or-r-r-or-registers)                       | 00010100 | reserved                                              | 00110100 |
+| [NOR R, R](#nor-r-r-nor-registers)                    | 00010101 | reserved                                              | 00110101 |
+| [NAND R, R](#nand-r-r-nand-registers)                 | 00010110 | reserved                                              | 00110110 |
+| [AND R, R](#and-r-r-and-registers)                    | 00010111 | reserved                                              | 00110111 |
+| [ADC R, R](#adc-r-r-add-with-carry)                   | 00011000 | reserved                                              | 00111000 |
+| [PHR R](#phr-r-push-register)                         | 00011001 | reserved                                              | 00111001 |
+| [SBC R, R](#sbc-r-r-subtract-with-carry)              | 00011010 | reserved                                              | 00111010 |
+| [PLR R](#plr-r-pull-register)                         | 00011011 | reserved                                              | 00111011 |
+| [JSR](#jsr-a-jump-to-subroutine)                      | 00011100 | [RTS](#rts-return-from-subroutine)                    | 00111100 |
+| [CMP R,R](#cmp-rr-compare-registers)                  | 00011101 | reserved                                              | 00111101 |
+| [DEC R](#dec-r-decrement-register)                    | 00011110 | reserved                                              | 00111110 |
+| [INC R](#inc-r-increment-register)                    | 00011111 | reserved                                              | 00111111 |
 
 ## Instruction descriptions
 
