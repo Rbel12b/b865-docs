@@ -104,7 +104,7 @@ So if X is 0 PC will be set to the reset vector at 0xFFFE - 0xFFFF
 
 | Instruction | Byte 0 |
 |-------------|--------|
-| RST         | 0x00   |
+| RST         | `0x00` |
 
 ### MOV R,R (Move Register to Register)
 
@@ -210,7 +210,7 @@ Decrements the X index register by one.
 Size: 1 byte
 
 ```c
-X += 1;
+X -= 1;
 ```
 
 | Instruction  | Byte 0 |
@@ -259,17 +259,55 @@ Regs[Arg0] -= *resolveAddress(Arg1);
 
 Increments the X register by one.
 
+Size: 1 byte
+
+```c
+X += 1;
+```
+
+| Instruction  | Byte 0 |
+|--------------|--------|
+| INX          | `0x0A` |
+
 ### NOP (No Operation)
 
 Performs no operation and advances to the next instruction.
+
+| Instruction  | Byte 0 |
+|--------------|--------|
+| NOP          | `0x0B` |
 
 ### RSH R (Right Shift Register)
 
 Shifts the bits in a register to the right.
 
+Arguments:
+
+ 1. `Arg0` = register index
+
+```c
+Regs[Arg0] >>= 1;
+```
+
+| Instruction  | Byte 0 |
+|--------------|--------|
+| RSH R        | `0x0C \| Arg0 << 5` |
+
 ### LSH R (Left Shift Register)
 
 Shifts the bits in a register to the left.
+
+Arguments:
+
+ 1. `Arg0` = register index
+
+```c
+Regs[Arg0] <<= 1;
+```
+
+| Instruction  | Byte 0 |
+|--------------|--------|
+| RSH R        | `0x0C \| Arg0 << 5` |
 
 ### ROR R (Rotate Right Register)
 
