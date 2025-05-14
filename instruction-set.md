@@ -85,7 +85,7 @@ Each instruction in the instruction set is documented with the following structu
 
 2. **Arguments**: If the instruction takes arguments, they are listed and described. For example, the source and destination registers or memory addresses.
 
-3. **C Representation**: A snippet of C code is provided to represent the behavior of the instruction. This helps in understanding how the instruction operates at a low level. `Memory` is a 64kB array (65536 bytes), represents the full memory region (0x0000-0xFFFF). The registers are represented with their name: `PC`, `ACC`, `X`, `Y`, `SP`, `R0`, `R1`, `R2`, `R3`. The `resolveAddress` function represents the addresssing mode logic, see [Addressing modes](addressing-modes)
+3. **C Representation**: A snippet of C code is provided to represent the behavior of the instruction. This helps in understanding how the instruction operates at a low level. `Memory` is a 64kB array (65536 bytes), represents the full memory region (0x0000-0xFFFF). The registers are represented with their name: `PC`, `ACC`, `X`, `Y`, `SP`, `R0`, `R1`, `R2`, `R3`. The `resolveAddress` function represents the addresssing mode logic, see [Addressing modes](addressing-modes), A and B are the ALU's internal registers.
 
 4. **Instruction Encoding**: The encoding of the instruction in memory is detailed in a table. This includes the byte values and how arguments are encoded into the instruction. Each [addressing mode](addressing-modes) has a differt size in bytes after the instruction, so byte numbers in the instruction descriptions may not be correct.
 
@@ -229,12 +229,17 @@ Arguments:
  2. `Arg1` = Addressing mode
 
 ```c
-Regs[Arg0] += *resolveAddress(Arg1);
+A = Regs[Arg0];
+B = *resolveAddress(Arg1);
+S.carry = (A + B) > 0xFF;
+S.negative = 0;
+S.zero = (A + B) == 0;
+Regs[Arg0] = A + B;
 ```
 
 | Instruction  | Byte 0                | Byte 1 | Byte 2...|
 |--------------|-----------------------|--------|----------|
-| Add R, A     | `0x08 \| (Arg0 << 5)` | `Arg1` | Arguments for addressing mode |
+| ADD R, A     | `0x08 \| (Arg0 << 5)` | `Arg1` | Arguments for addressing mode |
 
 ### SUB R, A (Subtract Address from Register)
 
@@ -248,12 +253,17 @@ Arguments:
  2. `Arg1` = Addressing mode
 
 ```c
-Regs[Arg0] -= *resolveAddress(Arg1);
+A = Regs[Arg0];
+B = *resolveAddress(Arg1);
+S.carry = (A + ~B + 1) > 0xFF;
+S.negative = (A - B) < 0;
+S.zero = (A - B) == 0;
+Regs[Arg0] = (A + ~B + 1);
 ```
 
 | Instruction  | Byte 0                | Byte 1 | Byte 2...|
 |--------------|-----------------------|--------|----------|
-| Add R, A     | `0x09 \| (Arg0 << 5)` | `Arg1` | Arguments for addressing mode |
+| SUB R, A     | `0x09 \| (Arg0 << 5)` | `Arg1` | Arguments for addressing mode |
 
 ### INX (Increment X)
 
@@ -273,6 +283,8 @@ X += 1;
 
 Performs no operation and advances to the next instruction.
 
+Size: 1 byte
+
 | Instruction  | Byte 0 |
 |--------------|--------|
 | NOP          | `0x0B` |
@@ -281,12 +293,16 @@ Performs no operation and advances to the next instruction.
 
 Shifts the bits in a register to the right.
 
+Size: 1 byte
+
 Arguments:
 
  1. `Arg0` = register index
 
 ```c
-Regs[Arg0] >>= 1;
+A = Regs[Arg0];
+S.carry = (bool)(A & 0x01);
+Regs[Arg0] = A >> 1;
 ```
 
 | Instruction  | Byte 0 |
@@ -297,75 +313,323 @@ Regs[Arg0] >>= 1;
 
 Shifts the bits in a register to the left.
 
+Size: 1 byte
+
 Arguments:
 
  1. `Arg0` = register index
 
 ```c
-Regs[Arg0] <<= 1;
+A = Regs[Arg0];
+S.carry = (bool)(A & 0x80);
+Regs[Arg0] = A << 1;
 ```
 
 | Instruction  | Byte 0 |
 |--------------|--------|
-| RSH R        | `0x0C \| Arg0 << 5` |
+| LSH R        | `0x0D \| Arg0 << 5` |
 
 ### ROR R (Rotate Right Register)
 
-Rotates the bits in a register to the right.
+Rotates the bits in a register to the right, including the carry bit.
+
+Size: 1 byte
+
+Arguments:
+
+ 1. `Arg0` = register index
+
+```c
+A = Regs[Arg0];
+Regs[Arg0] = A >> 1 | S.carry << 7;
+S.carry = A & 0x01;
+```
+
+| Instruction  | Byte 0 |
+|--------------|--------|
+| ROR R        | `0x0E \| Arg0 << 5` |
 
 ### ROL R (Rotate Left Register)
 
 Rotates the bits in a register to the left.
 
+Size: 1 byte
+
+Arguments:
+
+ 1. `Arg0` = register index
+
+```c
+A = Regs[Arg0];
+Regs[Arg0] = A << 1 | S.carry & 0x01;
+S.carry = A & 0x80;
+```
+
+| Instruction  | Byte 0 |
+|--------------|--------|
+| ROL R        | `0x0F \| Arg0 << 5` |
+
 ### ADD R, R (Add Register to Register)
 
-Adds the values of two registers.
+Adds the values of two registers and stores it in the first.
+
+Size: 2 bytes
+
+Arguments:
+
+ 1. `Arg0` = register index
+ 2. `Arg1` = register index
+
+```c
+A = Regs[Arg0];
+B = Regs[Arg1];
+S.carry = (A + B) > 0xFF;
+S.negative = 0;
+S.zero = (A + B) == 0;
+Regs[Arg0] = A + B;
+```
+
+| Instruction | Byte 0                | Byte 1 |
+|-------------|-----------------------|--------|
+| ADD R, R    | `0x10 \| (Arg0 << 5)` | `Arg1` |
 
 ### XNOR R, R (XNOR Registers)
 
-Performs a bitwise XNOR operation on two registers.
+Performs a bitwise XNOR operation on two registers and stores it in the first.
+
+Size: 2 bytes
+
+Arguments:
+
+ 1. `Arg0` = register index
+ 2. `Arg1` = register index
+
+```c
+A = Regs[Arg0];
+B = Regs[Arg1];
+Regs[Arg0] = ~(A ^ B);
+```
+
+| Instruction | Byte 0                | Byte 1 |
+|-------------|-----------------------|--------|
+| XNOR R, R   | `0x11 \| (Arg0 << 5)` | `Arg1` |
 
 ### SUB R, R (Subtract Register from Register)
 
-Subtracts the value of one register from another.
+Subtracts the value of one register from another and stores it in the first.
+
+Size: 2 bytes
+
+Arguments:
+
+ 1. `Arg0` = register index
+ 2. `Arg1` = register index
+
+```c
+A = Regs[Arg0];
+B = Regs[Arg1];
+S.carry = (A + ~B + 1) > 0xFF;
+S.negative = (A - B) < 0;
+S.zero = (A - B) == 0;
+Regs[Arg0] = (A + ~B + 1);
+```
+
+| Instruction | Byte 0                | Byte 1 |
+|-------------|-----------------------|--------|
+| SUB R, R    | `0x12 \| (Arg0 << 5)` | `Arg1` |
 
 ### XOR R, R (XOR Registers)
 
-Performs a bitwise XOR operation on two registers.
+Performs a bitwise XOR operation on two registers and stores it in the first.
+
+Size: 2 bytes
+
+Arguments:
+
+ 1. `Arg0` = register index
+ 2. `Arg1` = register index
+
+```c
+A = Regs[Arg0];
+B = Regs[Arg1];
+Regs[Arg0] = A ^ B;
+```
+
+| Instruction | Byte 0                | Byte 1 |
+|-------------|-----------------------|--------|
+| XOR R, R    | `0x13 \| (Arg0 << 5)` | `Arg1` |
 
 ### OR R, R (OR Registers)
 
-Performs a bitwise OR operation on two registers.
+Performs a bitwise OR operation on two registers and stores it in the first.
+
+Size: 2 bytes
+
+Arguments:
+
+ 1. `Arg0` = register index
+ 2. `Arg1` = register index
+
+```c
+A = Regs[Arg0];
+B = Regs[Arg1];
+Regs[Arg0] = A | B;
+```
+
+| Instruction | Byte 0                | Byte 1 |
+|-------------|-----------------------|--------|
+| OR R, R     | `0x14 \| (Arg0 << 5)` | `Arg1` |
 
 ### NOR R, R (NOR Registers)
 
-Performs a bitwise NOR operation on two registers.
+Performs a bitwise NOR operation on two registers and stores it in the first.
+
+Size: 2 bytes
+
+Arguments:
+
+ 1. `Arg0` = register index
+ 2. `Arg1` = register index
+
+```c
+A = Regs[Arg0];
+B = Regs[Arg1];
+Regs[Arg0] = ~(A | B);
+```
+
+| Instruction | Byte 0                | Byte 1 |
+|-------------|-----------------------|--------|
+| NOR R, R    | `0x15 \| (Arg0 << 5)` | `Arg1` |
 
 ### NAND R, R (NAND Registers)
 
-Performs a bitwise NAND operation on two registers.
+Performs a bitwise NAND operation on two registers and stores it in the first.
+
+Size: 2 bytes
+
+Arguments:
+
+ 1. `Arg0` = register index
+ 2. `Arg1` = register index
+
+```c
+A = Regs[Arg0];
+B = Regs[Arg1];
+Regs[Arg0] = ~(A & B);
+```
+
+| Instruction | Byte 0                | Byte 1 |
+|-------------|-----------------------|--------|
+| NAND R, R   | `0x16 \| (Arg0 << 5)` | `Arg1` |
 
 ### AND R, R (AND Registers)
 
-Performs a bitwise AND operation on two registers.
+Performs a bitwise AND operation on two registers and stores it in the first.
+
+Size: 2 bytes
+
+Arguments:
+
+ 1. `Arg0` = register index
+ 2. `Arg1` = register index
+
+```c
+A = Regs[Arg0];
+B = Regs[Arg1];
+Regs[Arg0] = A & B;
+```
+
+| Instruction | Byte 0                | Byte 1 |
+|-------------|-----------------------|--------|
+| AND R, R    | `0x17 \| (Arg0 << 5)` | `Arg1` |
 
 ### ADC R, R (Add with Carry)
 
-Adds two registers with a carry bit.
+Adds a register to another with a carry bit.
+
+Size: 2 bytes
+
+Arguments:
+
+ 1. `Arg0` = register index
+ 2. `Arg1` = register index
+
+```c
+A = Regs[Arg0];
+B = Regs[Arg1];
+S.negative = 0;
+S.zero = (A + B + S.carry) == 0;
+Regs[Arg0] = A + B + S.carry;
+S.carry = (A + B + S.carry) > 0xFF;
+```
+
+| Instruction | Byte 0                | Byte 1 |
+|-------------|-----------------------|--------|
+| ADC R, R    | `0x18 \| (Arg0 << 5)` | `Arg1` |
 
 ### PHR R (Push Register)
 
 Pushes the value of a register onto the stack.
 
+Size: 1 byte
+
+Arguments:
+
+ 1. `Arg0` = register index
+
+```c
+Memory[SP + 0x100] = Regs[Arg0];
+SP--;
+```
+
+| Instruction  | Byte 0 |
+|--------------|--------|
+| PHR R        | `0x19 \| Arg0 << 5` |
+
 ### SBC R, R (Subtract with Carry)
 
 Subtracts one register from another with a carry bit.
+
+Size: 2 bytes
+
+Arguments:
+
+ 1. `Arg0` = register index
+ 2. `Arg1` = register index
+
+```c
+A = Regs[Arg0];
+B = Regs[Arg1];
+S.zero = (A + ~B + S.carry) == 0;
+Regs[Arg0] = (A + ~B + S.carry);
+S.carry = (A + ~B + S.carry) > 0xFF;
+S.negative = !S.carry && !S.zero;
+```
+
+| Instruction | Byte 0                | Byte 1 |
+|-------------|-----------------------|--------|
+| SBC R, R    | `0x1A \| (Arg0 << 5)` | `Arg1` |
 
 ### PLR R (Pull Register)
 
 Pulls a value from the stack into a register.
 
-### JSR (Jump to Subroutine)
+Size: 1 byte
+
+Arguments:
+
+ 1. `Arg0` = register index
+
+```c
+SP--;
+Regs[Arg0] = Memory[SP + 0x100];
+```
+
+| Instruction  | Byte 0 |
+|--------------|--------|
+| PHR R        | `0x1B \| Arg0 << 5` |
+
+### JSR A (Jump to Subroutine)
 
 Jumps to a subroutine and saves the return address.
 
