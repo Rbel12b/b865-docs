@@ -14,7 +14,7 @@ The **B865** is a homebrew 8-bit computer built on a breadboard, featuring a cus
 
 ## Instruction Set
 
-Full [Instruction Set Documentation](arch/instruction-set.md)
+Full [Instruction Set Documentation](instruction-set.md)
 
 ## Memory Map
 
