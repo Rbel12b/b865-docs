@@ -1,6 +1,6 @@
 site_name: B865 Docs
 nav:
   - Home: index.md
-  - Addressing modes: addressing-modes.md
   - Instruction set: instruction-set.md
+  - Addressing modes: addressing-modes.md
 theme: readthedocs
