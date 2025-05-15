@@ -35,4 +35,4 @@ The CPU is built using 74-series logic, with a microcoded control unit stored in
 
 ## License
 
-[MIT License](LICENSE)
+[CC BY_SA 4.0](LICENSE)
