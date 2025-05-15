@@ -5,7 +5,7 @@
 | Argument Type | Meaning          |
 |---------------|------------------|
 | R             | Register index [A, X, Y, SP, R0, R1, R2, R3] |
-| A             | [Addressing mode](addressing-modes) (0-15)|
+| A             | [Addressing mode](addressing-modes.md) (0-15)|
 | flags         | Condition Flags  |
 
 ## Instruction List
@@ -53,9 +53,9 @@ Each instruction in the instruction set is documented with the following structu
 
 2. **Arguments**: If the instruction takes arguments, they are listed and described. For example, the source and destination registers or memory addresses.
 
-3. **C Representation**: A snippet of C code is provided to represent the behavior of the instruction. This helps in understanding how the instruction operates at a low level. `Memory` is a 64kB array (65536 bytes), represents the full memory region (0x0000-0xFFFF). The registers are represented with their name: `PC`, `ACC`, `X`, `Y`, `SP`, `R0`, `R1`, `R2`, `R3`. The `resolveAddress` function represents the addresssing mode logic, see [Addressing modes](addressing-modes), A and B are the ALU's internal registers.
+3. **C Representation**: A snippet of C code is provided to represent the behavior of the instruction. This helps in understanding how the instruction operates at a low level. `Memory` is a 64kB array (65536 bytes), represents the full memory region (0x0000-0xFFFF). The registers are represented with their name: `PC`, `ACC`, `X`, `Y`, `SP`, `R0`, `R1`, `R2`, `R3`. The `resolveAddress` function represents the addresssing mode logic, see [Addressing modes](addressing-modes.md), A and B are the ALU's internal registers.
 
-4. **Instruction Encoding**: The encoding of the instruction in memory is detailed in a table. This includes the byte values and how arguments are encoded into the instruction. Each [addressing mode](addressing-modes) has a differt size in bytes after the instruction, so byte numbers in the instruction descriptions may not be correct.
+4. **Instruction Encoding**: The encoding of the instruction in memory is detailed in a table. This includes the byte values and how arguments are encoded into the instruction. Each [addressing mode](addressing-modes.md) has a differt size in bytes after the instruction, so byte numbers in the instruction descriptions may not be correct.
 
 ### RST (Reset)
 

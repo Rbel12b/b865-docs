@@ -1,0 +1,19 @@
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+.venv/
+
+# MkDocs build directory
+site/
+
+# Editor settings
+.vscode/
+*.swp
+*~
+
+# OS-generated files
+.DS_Store
+Thumbs.db

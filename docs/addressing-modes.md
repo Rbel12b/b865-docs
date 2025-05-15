@@ -9,10 +9,10 @@
 | 4    | [zp+X](#zeropage-x-indexed)              |
 | 5    | [zp+Y](#zeropage-y-indexed)              |
 | 6    | [immediate](#immediate)                  |
-| 7    | [(zp+X)](#indirect-zeropage-x-indexed)   |
-| 8    | [(zp+Y)](#indirect-zeropage-y-indexed)   |
-| 9    | [(zp)+X](#indirect-zeropage-x-indexed-1) |
-| 10   | [(zp)+Y](#indirect-zeropage-y-indexed-1) |
+| 7    | [(zp+X)](#indirect-zp-x)                 |
+| 8    | [(zp+Y)](#indirect-zp-y)                 |
+| 9    | [(zp)+X](#indirect-zeropage-x-indexed)   |
+| 10   | [(zp)+Y](#indirect-zeropage-y-indexed)   |
 | 11   | [(zp)](#indirect-zeropage)               |
 | 12   | illegal                                  |
 | 13   | [sp+i](#stack-pointer-immediate-index)   |
@@ -75,7 +75,7 @@ The operand is a constant value included directly in the instruction, not a memo
 
 ---
 
-## Indirect (Zeropage, X indexed)
+<h2 id="indirect-zp-x">Indirect (Zeropage, X indexed)</h2>
 
 1 byte
 
@@ -83,7 +83,7 @@ Adds X to a zero page address, then uses the resulting address to fetch a 16-bit
 
 ---
 
-## Indirect (Zeropage, Y indexed)
+<h2 id="indirect-zp-y">Indirect (Zeropage, Y indexed)</h2>
 
 1 byte
 
