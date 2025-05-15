@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Addressing modes - B865 Docs</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Addressing modes";
+        var mkdocs_page_input_path = "addressing-modes.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> B865 Docs
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../instruction-set/">Instruction set</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Addressing modes</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#absolute">Absolute</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#absolute-x-indexed">Absolute, X indexed</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#absolute-y-indexed">Absolute, Y indexed</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#zeropage">Zeropage</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#zeropage-x-indexed">Zeropage, X indexed</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#zeropage-y-indexed">Zeropage, Y indexed</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#immediate">Immediate</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#indirect-zeropage-x-indexed">Indirect (Zeropage), X indexed</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#indirect-zeropage-y-indexed">Indirect (Zeropage), Y indexed</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#indirect-zeropage">Indirect (Zeropage)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#stack-pointer-immediate-index">Stack Pointer, immediate index</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#stack-pointer-x-indexed">Stack Pointer, X indexed</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#stack-pointer-y-indexed">Stack Pointer, Y indexed</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">B865 Docs</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Addressing modes</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="addressing-modes">Addressing modes</h1>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Addressing Mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td><a href="#absolute">abs</a></td>
+</tr>
+<tr>
+<td>1</td>
+<td><a href="#absolute-x-indexed">abs+X</a></td>
+</tr>
+<tr>
+<td>2</td>
+<td><a href="#absolute-y-indexed">abs+Y</a></td>
+</tr>
+<tr>
+<td>3</td>
+<td><a href="#zeropage">zp</a></td>
+</tr>
+<tr>
+<td>4</td>
+<td><a href="#zeropage-x-indexed">zp+X</a></td>
+</tr>
+<tr>
+<td>5</td>
+<td><a href="#zeropage-y-indexed">zp+Y</a></td>
+</tr>
+<tr>
+<td>6</td>
+<td><a href="#immediate">immediate</a></td>
+</tr>
+<tr>
+<td>7</td>
+<td><a href="#indirect-zp-x">(zp+X)</a></td>
+</tr>
+<tr>
+<td>8</td>
+<td><a href="#indirect-zp-y">(zp+Y)</a></td>
+</tr>
+<tr>
+<td>9</td>
+<td><a href="#indirect-zeropage-x-indexed">(zp)+X</a></td>
+</tr>
+<tr>
+<td>10</td>
+<td><a href="#indirect-zeropage-y-indexed">(zp)+Y</a></td>
+</tr>
+<tr>
+<td>11</td>
+<td><a href="#indirect-zeropage">(zp)</a></td>
+</tr>
+<tr>
+<td>12</td>
+<td>illegal</td>
+</tr>
+<tr>
+<td>13</td>
+<td><a href="#stack-pointer-immediate-index">sp+i</a></td>
+</tr>
+<tr>
+<td>14</td>
+<td><a href="#stack-pointer-x-indexed">sp+X</a></td>
+</tr>
+<tr>
+<td>15</td>
+<td><a href="#stack-pointer-y-indexed">sp+Y</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="absolute">Absolute</h2>
+<p>2 bytes</p>
+<p>The absolute addressing mode specifies a full 16-bit address in the instruction, allowing access to any memory location. The operand is the address itself (LE).</p>
+<hr />
+<h2 id="absolute-x-indexed">Absolute, X indexed</h2>
+<p>2 bytes</p>
+<p>Adds the value of the X register to a 16-bit base address specified in the instruction. Useful for accessing arrays or tables.</p>
+<hr />
+<h2 id="absolute-y-indexed">Absolute, Y indexed</h2>
+<p>2 bytes</p>
+<p>Adds the value of the Y register to a 16-bit base address specified in the instruction.</p>
+<hr />
+<h2 id="zeropage">Zeropage</h2>
+<p>1 byte</p>
+<p>Uses an 8-bit address, allowing access to the first 256 bytes of memory (zero page). Instructions are shorter and faster.</p>
+<hr />
+<h2 id="zeropage-x-indexed">Zeropage, X indexed</h2>
+<p>1 byte</p>
+<p>Adds the value of the X register to an 8-bit zero page address. Enables efficient indexed access within the zero page.</p>
+<hr />
+<h2 id="zeropage-y-indexed">Zeropage, Y indexed</h2>
+<p>1 byte</p>
+<p>Adds the value of the Y register to an 8-bit zero page address.</p>
+<hr />
+<h2 id="immediate">Immediate</h2>
+<p>1 byte</p>
+<p>The operand is a constant value included directly in the instruction, not a memory address.</p>
+<hr />
+<h2 id="indirect-zp-x">Indirect (Zeropage, X indexed)</h2>
+
+<p>1 byte</p>
+<p>Adds X to a zero page address, then uses the resulting address to fetch a 16-bit pointer from zero page. The pointer is then used as the effective address.</p>
+<hr />
+<h2 id="indirect-zp-y">Indirect (Zeropage, Y indexed)</h2>
+
+<p>1 byte</p>
+<p>Fetches a 16-bit pointer from a zero page address, then adds Y to the pointer to form the effective address.</p>
+<hr />
+<h2 id="indirect-zeropage-x-indexed">Indirect (Zeropage), X indexed</h2>
+<p>1 byte</p>
+<p>Uses a zero page address, adds X to it, and then uses the resulting address to fetch a 16-bit pointer from zero page. The pointer is the effective address.</p>
+<hr />
+<h2 id="indirect-zeropage-y-indexed">Indirect (Zeropage), Y indexed</h2>
+<p>1 byte</p>
+<p>Fetches a 16-bit pointer from a zero page address, then adds Y to the pointer to form the effective address.</p>
+<hr />
+<h2 id="indirect-zeropage">Indirect (Zeropage)</h2>
+<p>1 byte</p>
+<p>Fetches a 16-bit pointer from a zero page address. The pointer is used as the effective address.</p>
+<hr />
+<h2 id="stack-pointer-immediate-index">Stack Pointer, immediate index</h2>
+<p>0 bytes</p>
+<p>Adds an immediate value to the stack pointer (SP) to calculate the effective address.</p>
+<hr />
+<h2 id="stack-pointer-x-indexed">Stack Pointer, X indexed</h2>
+<p>0 bytes</p>
+<p>Adds the value of the X register to the stack pointer (SP) to form the effective address.</p>
+<hr />
+<h2 id="stack-pointer-y-indexed">Stack Pointer, Y indexed</h2>
+<p>0 bytes</p>
+<p>Adds the value of the Y register to the stack pointer (SP) to form the effective address.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../instruction-set/" class="btn btn-neutral float-left" title="Instruction set"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../instruction-set/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Instruction set - B865 Docs</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Instruction set";
+        var mkdocs_page_input_path = "instruction-set.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> B865 Docs
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Instruction set</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#arguments">Arguments</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#instruction-list">Instruction List</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#instruction-descriptions">Instruction descriptions</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#rst-reset">RST (Reset)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mov-rr-move-register-to-register">MOV R,R (Move Register to Register)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mov-ra-move-register-to-address">MOV R,A (Move Register to Address)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mov-aa-move-address-to-address">MOV A,A (Move Address to Address)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mov-ar-move-address-to-register">MOV A,R (Move Address to Register)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#brh-flags-a-branch-on-flags">BRH flags, A (Branch on Flags)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#dex-decrement-x">DEX (Decrement X)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#add-r-a-add-register-and-address">ADD R, A (Add Register and Address)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sub-r-a-subtract-address-from-register">SUB R, A (Subtract Address from Register)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#inx-increment-x">INX (Increment X)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#nop-no-operation">NOP (No Operation)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#rsh-r-right-shift-register">RSH R (Right Shift Register)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#lsh-r-left-shift-register">LSH R (Left Shift Register)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ror-r-rotate-right-register">ROR R (Rotate Right Register)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#rol-r-rotate-left-register">ROL R (Rotate Left Register)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#add-r-r-add-register-to-register">ADD R, R (Add Register to Register)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#xnor-r-r-xnor-registers">XNOR R, R (XNOR Registers)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sub-r-r-subtract-register-from-register">SUB R, R (Subtract Register from Register)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#xor-r-r-xor-registers">XOR R, R (XOR Registers)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#or-r-r-or-registers">OR R, R (OR Registers)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#nor-r-r-nor-registers">NOR R, R (NOR Registers)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#nand-r-r-nand-registers">NAND R, R (NAND Registers)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#and-r-r-and-registers">AND R, R (AND Registers)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#adc-r-r-add-with-carry">ADC R, R (Add with Carry)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#phr-r-push-register">PHR R (Push Register)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sbc-r-r-subtract-with-carry">SBC R, R (Subtract with Carry)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#plr-r-pull-register">PLR R (Pull Register)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#jsr-a-jump-to-subroutine">JSR A (Jump to Subroutine)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#cmp-rr-compare-registers">CMP R,R (Compare Registers)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#dec-r-decrement-register">DEC R (Decrement Register)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#inc-r-increment-register">INC R (Increment Register)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#jmp-a-jump-to-address">JMP A (Jump to Address)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#clc-clear-carry">CLC (Clear Carry)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#stc-set-carry">STC (Set Carry)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#hlt-halt">HLT (Halt)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#rts-return-from-subroutine">RTS (Return from Subroutine)</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../addressing-modes/">Addressing modes</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">B865 Docs</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Instruction set</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="instruction-set">Instruction set</h1>
+<h2 id="arguments">Arguments</h2>
+<table>
+<thead>
+<tr>
+<th>Argument Type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R</td>
+<td>Register index [A, X, Y, SP, R0, R1, R2, R3]</td>
+</tr>
+<tr>
+<td>A</td>
+<td><a href="../addressing-modes/">Addressing mode</a> (0-15)</td>
+</tr>
+<tr>
+<td>flags</td>
+<td>Condition Flags</td>
+</tr>
+</tbody>
+</table>
+<h2 id="instruction-list">Instruction List</h2>
+<table>
+<thead>
+<tr>
+<th>Mnemonic</th>
+<th>binary</th>
+<th>Mnemonic</th>
+<th>binary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#rst-reset">RST</a></td>
+<td>00000000</td>
+<td><a href="#jmp-a-jump-to-address">JMP A</a></td>
+<td>00100000</td>
+</tr>
+<tr>
+<td><a href="#mov-rr-move-register-to-register">MOV R,R</a></td>
+<td>00000001</td>
+<td>reserved</td>
+<td>00100001</td>
+</tr>
+<tr>
+<td><a href="#mov-ra-move-register-to-address">MOV R,A</a></td>
+<td>00000010</td>
+<td>reserved</td>
+<td>00100010</td>
+</tr>
+<tr>
+<td><a href="#mov-aa-move-address-to-address">MOV A,A</a></td>
+<td>00000011</td>
+<td><a href="#clc-clear-carry">CLC</a></td>
+<td>00100011</td>
+</tr>
+<tr>
+<td><a href="#mov-ar-move-address-to-register">MOV A,R</a></td>
+<td>00000100</td>
+<td>reserved</td>
+<td>00100100</td>
+</tr>
+<tr>
+<td><a href="#brh-flags-a-branch-on-flags">BRH flags, A</a></td>
+<td>00000101</td>
+<td>reserved</td>
+<td>00100101</td>
+</tr>
+<tr>
+<td><a href="#dex-decrement-x">DEX</a></td>
+<td>00000110</td>
+<td><a href="#stc-set-carry">STC</a></td>
+<td>00100110</td>
+</tr>
+<tr>
+<td>illegal</td>
+<td>00000111</td>
+<td>illegal</td>
+<td>00100111</td>
+</tr>
+<tr>
+<td><a href="#add-r-a-add-register-and-address">ADD R, A</a></td>
+<td>00001000</td>
+<td>reserved</td>
+<td>00101000</td>
+</tr>
+<tr>
+<td><a href="#sub-r-a-subtract-address-from-register">SUB R, A</a></td>
+<td>00001001</td>
+<td>reserved</td>
+<td>00101001</td>
+</tr>
+<tr>
+<td><a href="#inx-increment-x">INX</a></td>
+<td>00001010</td>
+<td>illegal</td>
+<td>00101010</td>
+</tr>
+<tr>
+<td><a href="#nop-no-operation">NOP</a></td>
+<td>00001011</td>
+<td><a href="#hlt-halt">HLT</a></td>
+<td>00101011</td>
+</tr>
+<tr>
+<td><a href="#rsh-r-right-shift-register">RSH R</a></td>
+<td>00001100</td>
+<td>reserved</td>
+<td>00101100</td>
+</tr>
+<tr>
+<td><a href="#lsh-r-left-shift-register">LSH R</a></td>
+<td>00001101</td>
+<td>reserved</td>
+<td>00101101</td>
+</tr>
+<tr>
+<td><a href="#ror-r-rotate-right-register">ROR R</a></td>
+<td>00001110</td>
+<td>reserved</td>
+<td>00101110</td>
+</tr>
+<tr>
+<td><a href="#rol-r-rotate-left-register">ROL R</a></td>
+<td>00001111</td>
+<td>reserved</td>
+<td>00101111</td>
+</tr>
+<tr>
+<td><a href="#add-r-r-add-register-to-register">ADD R, R</a></td>
+<td>00010000</td>
+<td>reserved</td>
+<td>00110000</td>
+</tr>
+<tr>
+<td><a href="#xnor-r-r-xnor-registers">XNOR R, R</a></td>
+<td>00010001</td>
+<td>reserved</td>
+<td>00110001</td>
+</tr>
+<tr>
+<td><a href="#sub-r-r-subtract-register-from-register">SUB R, R</a></td>
+<td>00010010</td>
+<td>reserved</td>
+<td>00110010</td>
+</tr>
+<tr>
+<td><a href="#xor-r-r-xor-registers">XOR R, R</a></td>
+<td>00010011</td>
+<td>reserved</td>
+<td>00110011</td>
+</tr>
+<tr>
+<td><a href="#or-r-r-or-registers">OR R, R</a></td>
+<td>00010100</td>
+<td>reserved</td>
+<td>00110100</td>
+</tr>
+<tr>
+<td><a href="#nor-r-r-nor-registers">NOR R, R</a></td>
+<td>00010101</td>
+<td>reserved</td>
+<td>00110101</td>
+</tr>
+<tr>
+<td><a href="#nand-r-r-nand-registers">NAND R, R</a></td>
+<td>00010110</td>
+<td>reserved</td>
+<td>00110110</td>
+</tr>
+<tr>
+<td><a href="#and-r-r-and-registers">AND R, R</a></td>
+<td>00010111</td>
+<td>reserved</td>
+<td>00110111</td>
+</tr>
+<tr>
+<td><a href="#adc-r-r-add-with-carry">ADC R, R</a></td>
+<td>00011000</td>
+<td>reserved</td>
+<td>00111000</td>
+</tr>
+<tr>
+<td><a href="#phr-r-push-register">PHR R</a></td>
+<td>00011001</td>
+<td>reserved</td>
+<td>00111001</td>
+</tr>
+<tr>
+<td><a href="#sbc-r-r-subtract-with-carry">SBC R, R</a></td>
+<td>00011010</td>
+<td>reserved</td>
+<td>00111010</td>
+</tr>
+<tr>
+<td><a href="#plr-r-pull-register">PLR R</a></td>
+<td>00011011</td>
+<td>reserved</td>
+<td>00111011</td>
+</tr>
+<tr>
+<td><a href="#jsr-a-jump-to-subroutine">JSR</a></td>
+<td>00011100</td>
+<td><a href="#rts-return-from-subroutine">RTS</a></td>
+<td>00111100</td>
+</tr>
+<tr>
+<td><a href="#cmp-rr-compare-registers">CMP R,R</a></td>
+<td>00011101</td>
+<td>reserved</td>
+<td>00111101</td>
+</tr>
+<tr>
+<td><a href="#dec-r-decrement-register">DEC R</a></td>
+<td>00011110</td>
+<td>reserved</td>
+<td>00111110</td>
+</tr>
+<tr>
+<td><a href="#inc-r-increment-register">INC R</a></td>
+<td>00011111</td>
+<td>reserved</td>
+<td>00111111</td>
+</tr>
+</tbody>
+</table>
+<h2 id="instruction-descriptions">Instruction descriptions</h2>
+<p>Each instruction in the instruction set is documented with the following structure:</p>
+<ol>
+<li>
+<p><strong>Instruction Name and Description</strong>: The name of the instruction is provided as a heading, followed by a brief description of its purpose and functionality.</p>
+</li>
+<li>
+<p><strong>Arguments</strong>: If the instruction takes arguments, they are listed and described. For example, the source and destination registers or memory addresses.</p>
+</li>
+<li>
+<p><strong>C Representation</strong>: A snippet of C code is provided to represent the behavior of the instruction. This helps in understanding how the instruction operates at a low level. <code>Memory</code> is a 64kB array (65536 bytes), represents the full memory region (0x0000-0xFFFF). The registers are represented with their name: <code>PC</code>, <code>ACC</code>, <code>X</code>, <code>Y</code>, <code>SP</code>, <code>R0</code>, <code>R1</code>, <code>R2</code>, <code>R3</code>. The <code>resolveAddress</code> function represents the addresssing mode logic, see <a href="../addressing-modes/">Addressing modes</a>, A and B are the ALU's internal registers.</p>
+</li>
+<li>
+<p><strong>Instruction Encoding</strong>: The encoding of the instruction in memory is detailed in a table. This includes the byte values and how arguments are encoded into the instruction. Each <a href="../addressing-modes/">addressing mode</a> has a differt size in bytes after the instruction, so byte numbers in the instruction descriptions may not be correct.</p>
+</li>
+</ol>
+<h3 id="rst-reset">RST (Reset)</h3>
+<p>Resets the processor to its initial state. Before executing this instruction the X register must be set to zero.</p>
+<p>Size: 1 byte</p>
+<pre><code class="language-c">PC = Memory[(X - 1) &lt;&lt; 8 + (X - 2)] &lt;&lt; 8 + Memory[(X - 1) &lt;&lt; 8 + (X - 1)];
+X -= 1;
+</code></pre>
+<p>So if X is 0 PC will be set to the reset vector at 0xFFFE - 0xFFFF</p>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RST</td>
+<td><code>0x00</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="mov-rr-move-register-to-register">MOV R,R (Move Register to Register)</h3>
+<p>Transfers data from one register to another.</p>
+<p>Size: 2 bytes</p>
+<p>Arguments:</p>
+<ol>
+<li><code>Arg0</code> = Destinarion register index</li>
+<li><code>Arg1</code> = Source register index</li>
+</ol>
+<pre><code class="language-c">Regs[Arg0] = Regs[Arg1];
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+<th>Byte 1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MOV R, R</td>
+<td><code>0x01 \| (Arg0 &lt;&lt; 5)</code></td>
+<td><code>Arg1</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="mov-ra-move-register-to-address">MOV R,A (Move Register to Address)</h3>
+<p>Moves data from a register to a specified memory address.</p>
+<p>Size: 2-4 bytes depending on the addressing mode</p>
+<p>Arguments:</p>
+<ol>
+<li><code>Arg0</code> = Destinarion register index</li>
+<li><code>Arg1</code> = Addressing mode for source byte</li>
+</ol>
+<pre><code class="language-c">Regs[Arg0] = *resolveAddress(Arg1);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+<th>Byte 1</th>
+<th>Byte 2...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MOV R, A</td>
+<td><code>0x02 \| (Arg0 &lt;&lt; 5)</code></td>
+<td><code>Arg1</code></td>
+<td>Arguments for addressing mode</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="mov-aa-move-address-to-address">MOV A,A (Move Address to Address)</h3>
+<p>Transfers data between two memory addresses.</p>
+<p>Size: 2-6 bytes depending on the addressing modes</p>
+<p>Arguments:</p>
+<ol>
+<li><code>Arg0</code> = Addressing mode for destination</li>
+<li><code>Arg1</code> = Addressing mode for source byte</li>
+</ol>
+<pre><code class="language-c">*resolveAddress(Arg0) = *resolveAddress(Arg1);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+<th>Byte 1</th>
+<th>Byte 2...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MOV R, A</td>
+<td><code>0x03</code></td>
+<td><code>Arg1 \| Arg0 &lt;&lt; 5</code></td>
+<td>Arguments for addressing modes (<code>Arg0</code> first)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="mov-ar-move-address-to-register">MOV A,R (Move Address to Register)</h3>
+<p>Moves data from a memory address to a register.</p>
+<p>Size: 2-4 bytes depending on the addressing mode</p>
+<p>Arguments:</p>
+<ol>
+<li><code>Arg0</code> = Addressing mode for destination</li>
+<li><code>Arg1</code> = Source register index</li>
+</ol>
+<pre><code class="language-c">*resolveAddress(Arg0) = Regs[Arg1];
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+<th>Byte 1</th>
+<th>Byte 2...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MOV R, A</td>
+<td><code>0x04 \| (Arg1 &lt;&lt; 5)</code></td>
+<td><code>Arg0</code></td>
+<td>Arguments for addressing mode</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="brh-flags-a-branch-on-flags">BRH flags, A (Branch on Flags)</h3>
+<p>Branches to a specified address based on condition flags. Only 1 flag should be set, if more are set it work as an or operation (if eighter is true it will branch)</p>
+<p>Size: 3 bytes</p>
+<p>Arguments:</p>
+<ol>
+<li><code>Arg0</code> = conditon flags, compared with the Status register = <code>Carry | Zero &lt;&lt; 1 | Negative &lt;&lt; 2</code></li>
+<li><code>Arg1</code> = An absolute address, where it will jump to if the conditions are true. (2 bytes)</li>
+</ol>
+<pre><code class="language-c">if (S &amp; Arg0) {
+    PC = Arg1;
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+<th>Byte 1-2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BRH flags, A</td>
+<td><code>0x05 \| (Arg0 &lt;&lt; 5)</code></td>
+<td><code>Arg1</code> in LE format</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="dex-decrement-x">DEX (Decrement X)</h3>
+<p>Decrements the X index register by one.</p>
+<p>Size: 1 byte</p>
+<pre><code class="language-c">X -= 1;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DEX</td>
+<td><code>0x06</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="add-r-a-add-register-and-address">ADD R, A (Add Register and Address)</h3>
+<p>Adds the value at a memory address to a register.</p>
+<p>Size: 2-4 bytes depending on the addressing mode</p>
+<p>Arguments:</p>
+<ol>
+<li><code>Arg0</code> = register index</li>
+<li><code>Arg1</code> = Addressing mode</li>
+</ol>
+<pre><code class="language-c">A = Regs[Arg0];
+B = *resolveAddress(Arg1);
+S.carry = (A + B) &gt; 0xFF;
+S.negative = 0;
+S.zero = (A + B) == 0;
+Regs[Arg0] = A + B;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+<th>Byte 1</th>
+<th>Byte 2...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ADD R, A</td>
+<td><code>0x08 \| (Arg0 &lt;&lt; 5)</code></td>
+<td><code>Arg1</code></td>
+<td>Arguments for addressing mode</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="sub-r-a-subtract-address-from-register">SUB R, A (Subtract Address from Register)</h3>
+<p>Subtracts the value at a memory address from a register.</p>
+<p>Size: 2-4 bytes depending on the addressing mode</p>
+<p>Arguments:</p>
+<ol>
+<li><code>Arg0</code> = register index</li>
+<li><code>Arg1</code> = Addressing mode</li>
+</ol>
+<pre><code class="language-c">A = Regs[Arg0];
+B = *resolveAddress(Arg1);
+S.carry = (A + ~B + 1) &gt; 0xFF;
+S.negative = (A - B) &lt; 0;
+S.zero = (A - B) == 0;
+Regs[Arg0] = (A + ~B + 1);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+<th>Byte 1</th>
+<th>Byte 2...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SUB R, A</td>
+<td><code>0x09 \| (Arg0 &lt;&lt; 5)</code></td>
+<td><code>Arg1</code></td>
+<td>Arguments for addressing mode</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="inx-increment-x">INX (Increment X)</h3>
+<p>Increments the X register by one.</p>
+<p>Size: 1 byte</p>
+<pre><code class="language-c">X += 1;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>INX</td>
+<td><code>0x0A</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="nop-no-operation">NOP (No Operation)</h3>
+<p>Performs no operation and advances to the next instruction.</p>
+<p>Size: 1 byte</p>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NOP</td>
+<td><code>0x0B</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="rsh-r-right-shift-register">RSH R (Right Shift Register)</h3>
+<p>Shifts the bits in a register to the right.</p>
+<p>Size: 1 byte</p>
+<p>Arguments:</p>
+<ol>
+<li><code>Arg0</code> = register index</li>
+</ol>
+<pre><code class="language-c">A = Regs[Arg0];
+S.carry = (bool)(A &amp; 0x01);
+Regs[Arg0] = A &gt;&gt; 1;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RSH R</td>
+<td><code>0x0C \| Arg0 &lt;&lt; 5</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="lsh-r-left-shift-register">LSH R (Left Shift Register)</h3>
+<p>Shifts the bits in a register to the left.</p>
+<p>Size: 1 byte</p>
+<p>Arguments:</p>
+<ol>
+<li><code>Arg0</code> = register index</li>
+</ol>
+<pre><code class="language-c">A = Regs[Arg0];
+S.carry = (bool)(A &amp; 0x80);
+Regs[Arg0] = A &lt;&lt; 1;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LSH R</td>
+<td><code>0x0D \| Arg0 &lt;&lt; 5</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="ror-r-rotate-right-register">ROR R (Rotate Right Register)</h3>
+<p>Rotates the bits in a register to the right, including the carry bit.</p>
+<p>Size: 1 byte</p>
+<p>Arguments:</p>
+<ol>
+<li><code>Arg0</code> = register index</li>
+</ol>
+<pre><code class="language-c">A = Regs[Arg0];
+Regs[Arg0] = A &gt;&gt; 1 | S.carry &lt;&lt; 7;
+S.carry = A &amp; 0x01;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ROR R</td>
+<td><code>0x0E \| Arg0 &lt;&lt; 5</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="rol-r-rotate-left-register">ROL R (Rotate Left Register)</h3>
+<p>Rotates the bits in a register to the left.</p>
+<p>Size: 1 byte</p>
+<p>Arguments:</p>
+<ol>
+<li><code>Arg0</code> = register index</li>
+</ol>
+<pre><code class="language-c">A = Regs[Arg0];
+Regs[Arg0] = A &lt;&lt; 1 | S.carry &amp; 0x01;
+S.carry = A &amp; 0x80;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ROL R</td>
+<td><code>0x0F \| Arg0 &lt;&lt; 5</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="add-r-r-add-register-to-register">ADD R, R (Add Register to Register)</h3>
+<p>Adds the values of two registers and stores it in the first.</p>
+<p>Size: 2 bytes</p>
+<p>Arguments:</p>
+<ol>
+<li><code>Arg0</code> = register index</li>
+<li><code>Arg1</code> = register index</li>
+</ol>
+<pre><code class="language-c">A = Regs[Arg0];
+B = Regs[Arg1];
+S.carry = (A + B) &gt; 0xFF;
+S.negative = 0;
+S.zero = (A + B) == 0;
+Regs[Arg0] = A + B;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+<th>Byte 1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ADD R, R</td>
+<td><code>0x10 \| (Arg0 &lt;&lt; 5)</code></td>
+<td><code>Arg1</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="xnor-r-r-xnor-registers">XNOR R, R (XNOR Registers)</h3>
+<p>Performs a bitwise XNOR operation on two registers and stores it in the first.</p>
+<p>Size: 2 bytes</p>
+<p>Arguments:</p>
+<ol>
+<li><code>Arg0</code> = register index</li>
+<li><code>Arg1</code> = register index</li>
+</ol>
+<pre><code class="language-c">A = Regs[Arg0];
+B = Regs[Arg1];
+Regs[Arg0] = ~(A ^ B);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+<th>Byte 1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>XNOR R, R</td>
+<td><code>0x11 \| (Arg0 &lt;&lt; 5)</code></td>
+<td><code>Arg1</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="sub-r-r-subtract-register-from-register">SUB R, R (Subtract Register from Register)</h3>
+<p>Subtracts the value of one register from another and stores it in the first.</p>
+<p>Size: 2 bytes</p>
+<p>Arguments:</p>
+<ol>
+<li><code>Arg0</code> = register index</li>
+<li><code>Arg1</code> = register index</li>
+</ol>
+<pre><code class="language-c">A = Regs[Arg0];
+B = Regs[Arg1];
+S.carry = (A + ~B + 1) &gt; 0xFF;
+S.negative = (A - B) &lt; 0;
+S.zero = (A - B) == 0;
+Regs[Arg0] = (A + ~B + 1);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+<th>Byte 1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SUB R, R</td>
+<td><code>0x12 \| (Arg0 &lt;&lt; 5)</code></td>
+<td><code>Arg1</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="xor-r-r-xor-registers">XOR R, R (XOR Registers)</h3>
+<p>Performs a bitwise XOR operation on two registers and stores it in the first.</p>
+<p>Size: 2 bytes</p>
+<p>Arguments:</p>
+<ol>
+<li><code>Arg0</code> = register index</li>
+<li><code>Arg1</code> = register index</li>
+</ol>
+<pre><code class="language-c">A = Regs[Arg0];
+B = Regs[Arg1];
+Regs[Arg0] = A ^ B;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+<th>Byte 1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>XOR R, R</td>
+<td><code>0x13 \| (Arg0 &lt;&lt; 5)</code></td>
+<td><code>Arg1</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="or-r-r-or-registers">OR R, R (OR Registers)</h3>
+<p>Performs a bitwise OR operation on two registers and stores it in the first.</p>
+<p>Size: 2 bytes</p>
+<p>Arguments:</p>
+<ol>
+<li><code>Arg0</code> = register index</li>
+<li><code>Arg1</code> = register index</li>
+</ol>
+<pre><code class="language-c">A = Regs[Arg0];
+B = Regs[Arg1];
+Regs[Arg0] = A | B;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+<th>Byte 1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OR R, R</td>
+<td><code>0x14 \| (Arg0 &lt;&lt; 5)</code></td>
+<td><code>Arg1</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="nor-r-r-nor-registers">NOR R, R (NOR Registers)</h3>
+<p>Performs a bitwise NOR operation on two registers and stores it in the first.</p>
+<p>Size: 2 bytes</p>
+<p>Arguments:</p>
+<ol>
+<li><code>Arg0</code> = register index</li>
+<li><code>Arg1</code> = register index</li>
+</ol>
+<pre><code class="language-c">A = Regs[Arg0];
+B = Regs[Arg1];
+Regs[Arg0] = ~(A | B);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+<th>Byte 1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NOR R, R</td>
+<td><code>0x15 \| (Arg0 &lt;&lt; 5)</code></td>
+<td><code>Arg1</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="nand-r-r-nand-registers">NAND R, R (NAND Registers)</h3>
+<p>Performs a bitwise NAND operation on two registers and stores it in the first.</p>
+<p>Size: 2 bytes</p>
+<p>Arguments:</p>
+<ol>
+<li><code>Arg0</code> = register index</li>
+<li><code>Arg1</code> = register index</li>
+</ol>
+<pre><code class="language-c">A = Regs[Arg0];
+B = Regs[Arg1];
+Regs[Arg0] = ~(A &amp; B);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+<th>Byte 1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NAND R, R</td>
+<td><code>0x16 \| (Arg0 &lt;&lt; 5)</code></td>
+<td><code>Arg1</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="and-r-r-and-registers">AND R, R (AND Registers)</h3>
+<p>Performs a bitwise AND operation on two registers and stores it in the first.</p>
+<p>Size: 2 bytes</p>
+<p>Arguments:</p>
+<ol>
+<li><code>Arg0</code> = register index</li>
+<li><code>Arg1</code> = register index</li>
+</ol>
+<pre><code class="language-c">A = Regs[Arg0];
+B = Regs[Arg1];
+Regs[Arg0] = A &amp; B;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+<th>Byte 1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AND R, R</td>
+<td><code>0x17 \| (Arg0 &lt;&lt; 5)</code></td>
+<td><code>Arg1</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="adc-r-r-add-with-carry">ADC R, R (Add with Carry)</h3>
+<p>Adds a register to another with a carry bit.</p>
+<p>Size: 2 bytes</p>
+<p>Arguments:</p>
+<ol>
+<li><code>Arg0</code> = register index</li>
+<li><code>Arg1</code> = register index</li>
+</ol>
+<pre><code class="language-c">A = Regs[Arg0];
+B = Regs[Arg1];
+S.negative = 0;
+S.zero = (A + B + S.carry) == 0;
+Regs[Arg0] = A + B + S.carry;
+S.carry = (A + B + S.carry) &gt; 0xFF;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+<th>Byte 1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ADC R, R</td>
+<td><code>0x18 \| (Arg0 &lt;&lt; 5)</code></td>
+<td><code>Arg1</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="phr-r-push-register">PHR R (Push Register)</h3>
+<p>Pushes the value of a register onto the stack.</p>
+<p>Size: 1 byte</p>
+<p>Arguments:</p>
+<ol>
+<li><code>Arg0</code> = register index</li>
+</ol>
+<pre><code class="language-c">Memory[SP + 0x100] = Regs[Arg0];
+SP--;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PHR R</td>
+<td><code>0x19 \| Arg0 &lt;&lt; 5</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="sbc-r-r-subtract-with-carry">SBC R, R (Subtract with Carry)</h3>
+<p>Subtracts one register from another with a carry bit.</p>
+<p>Size: 2 bytes</p>
+<p>Arguments:</p>
+<ol>
+<li><code>Arg0</code> = register index</li>
+<li><code>Arg1</code> = register index</li>
+</ol>
+<pre><code class="language-c">A = Regs[Arg0];
+B = Regs[Arg1];
+S.zero = (A + ~B + S.carry) == 0;
+Regs[Arg0] = (A + ~B + S.carry);
+S.carry = (A + ~B + S.carry) &gt; 0xFF;
+S.negative = !S.carry &amp;&amp; !S.zero;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+<th>Byte 1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SBC R, R</td>
+<td><code>0x1A \| (Arg0 &lt;&lt; 5)</code></td>
+<td><code>Arg1</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="plr-r-pull-register">PLR R (Pull Register)</h3>
+<p>Pulls a value from the stack into a register.</p>
+<p>Size: 1 byte</p>
+<p>Arguments:</p>
+<ol>
+<li><code>Arg0</code> = register index</li>
+</ol>
+<pre><code class="language-c">SP--;
+Regs[Arg0] = Memory[SP + 0x100];
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PHR R</td>
+<td><code>0x1B \| Arg0 &lt;&lt; 5</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="jsr-a-jump-to-subroutine">JSR A (Jump to Subroutine)</h3>
+<p>Jumps to a subroutine and saves the return address to stack.</p>
+<p>Size: 3 bytes</p>
+<p>Arguments:</p>
+<ol>
+<li><code>Arg0</code> = subroutine address</li>
+</ol>
+<pre><code class="language-c">Memory[SP + 0x100] = (PC &amp; 0xFF00) &gt;&gt; 8;
+SP--;
+Memory[SP + 0x100] = PC &amp; 0xFF;
+SP--;
+PC = Arg0;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+<th>Byte 1-2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JSR A</td>
+<td><code>0x1C</code></td>
+<td><code>Arg0</code> in LE format</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="cmp-rr-compare-registers">CMP R,R (Compare Registers)</h3>
+<p>Compares the values of two registers.</p>
+<p>Size: 2 bytes</p>
+<p>Arguments:</p>
+<ol>
+<li><code>Arg0</code> = register index</li>
+<li><code>Arg1</code> = register index</li>
+</ol>
+<pre><code class="language-c">A = Regs[Arg0];
+B = Regs[Arg1];
+S.carry = (A + ~B + 1) &gt; 0xFF;
+S.negative = (A - B) &lt; 0;
+S.zero = (A - B) == 0;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+<th>Byte 1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CMP R, R</td>
+<td><code>0x1D \| (Arg0 &lt;&lt; 5)</code></td>
+<td><code>Arg1</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="dec-r-decrement-register">DEC R (Decrement Register)</h3>
+<p>Decrements the value of a register by one.</p>
+<p>Size: 1 byte</p>
+<p>Arguments:</p>
+<ol>
+<li><code>Arg0</code> = register index</li>
+</ol>
+<pre><code class="language-c">Regs[Arg0] -= 1;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DEC R</td>
+<td><code>0x1E \| Arg0 &lt;&lt; 5</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="inc-r-increment-register">INC R (Increment Register)</h3>
+<p>Increments the value of a register by one.</p>
+<p>Size: 1 byte</p>
+<p>Arguments:</p>
+<ol>
+<li><code>Arg0</code> = register index</li>
+</ol>
+<pre><code class="language-c">Regs[Arg0] += 1;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>INC R</td>
+<td><code>0x1F \| Arg0 &lt;&lt; 5</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="jmp-a-jump-to-address">JMP A (Jump to Address)</h3>
+<p>Jumps to a specified memory address.</p>
+<p>Size: 3 bytes</p>
+<p>Arguments:</p>
+<ol>
+<li><code>Arg0</code> = subroutine address</li>
+</ol>
+<pre><code class="language-c">PC = Arg0;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+<th>Byte 1-2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JMP A</td>
+<td><code>0x20</code></td>
+<td><code>Arg0</code> in LE format</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="clc-clear-carry">CLC (Clear Carry)</h3>
+<p>Clears the carry flag.</p>
+<p>Size: 1 byte</p>
+<pre><code class="language-c">S.carry = 0;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CLC</td>
+<td><code>0x23</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="stc-set-carry">STC (Set Carry)</h3>
+<p>Sets the carry flag.</p>
+<p>Size: 1 byte</p>
+<pre><code class="language-c">S.carry = 1;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>STC</td>
+<td><code>0x26</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="hlt-halt">HLT (Halt)</h3>
+<p>Halts the processor.</p>
+<p>Size: 1 byte</p>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HLT</td>
+<td><code>0x2B</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="rts-return-from-subroutine">RTS (Return from Subroutine)</h3>
+<p>Returns from a subroutine to the calling address.</p>
+<p>Size: 1 byte</p>
+<pre><code class="language-c">PC = Memory[SP + 0x100 + 1] | (Memory[SP + 0x100 + 2] &lt;&lt; 8);
+SP += 2;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Byte 0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RTS</td>
+<td><code>0x3C</code></td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../addressing-modes/" class="btn btn-neutral float-right" title="Addressing modes">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../addressing-modes/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
