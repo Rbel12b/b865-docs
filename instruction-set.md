@@ -599,36 +599,152 @@ Regs[Arg0] = Memory[SP + 0x100];
 
 ### JSR A (Jump to Subroutine)
 
-Jumps to a subroutine and saves the return address.
+Jumps to a subroutine and saves the return address to stack.
+
+Size: 3 bytes
+
+Arguments:
+
+ 1. `Arg0` = subroutine address
+
+```c
+Memory[SP + 0x100] = (PC & 0xFF00) >> 8;
+SP--;
+Memory[SP + 0x100] = PC & 0xFF;
+SP--;
+PC = Arg0;
+```
+
+| Instruction  | Byte 0 | Byte 1-2            |
+|--------------|--------|---------------------|
+| JSR A        | `0x1C` | `Arg0` in LE format |
 
 ### CMP R,R (Compare Registers)
 
 Compares the values of two registers.
 
+Size: 2 bytes
+
+Arguments:
+
+ 1. `Arg0` = register index
+ 2. `Arg1` = register index
+
+```c
+A = Regs[Arg0];
+B = Regs[Arg1];
+S.carry = (A + ~B + 1) > 0xFF;
+S.negative = (A - B) < 0;
+S.zero = (A - B) == 0;
+```
+
+| Instruction | Byte 0                | Byte 1 |
+|-------------|-----------------------|--------|
+| CMP R, R    | `0x1D \| (Arg0 << 5)` | `Arg1` |
+
 ### DEC R (Decrement Register)
 
 Decrements the value of a register by one.
+
+Size: 1 byte
+
+Arguments:
+
+ 1. `Arg0` = register index
+
+```c
+Regs[Arg0] -= 1;
+```
+
+| Instruction  | Byte 0 |
+|--------------|--------|
+| DEC R        | `0x1E \| Arg0 << 5` |
 
 ### INC R (Increment Register)
 
 Increments the value of a register by one.
 
+Size: 1 byte
+
+Arguments:
+
+ 1. `Arg0` = register index
+
+```c
+Regs[Arg0] += 1;
+```
+
+| Instruction  | Byte 0 |
+|--------------|--------|
+| INC R        | `0x1F \| Arg0 << 5` |
+
 ### JMP A (Jump to Address)
 
 Jumps to a specified memory address.
+
+Size: 3 bytes
+
+Arguments:
+
+ 1. `Arg0` = subroutine address
+
+```c
+PC = Arg0;
+```
+
+| Instruction  | Byte 0 | Byte 1-2            |
+|--------------|--------|---------------------|
+| JMP A        | `0x20` | `Arg0` in LE format |
 
 ### CLC (Clear Carry)
 
 Clears the carry flag.
 
+Size: 1 byte
+
+```c
+S.carry = 0;
+```
+
+| Instruction  | Byte 0 |
+|--------------|--------|
+| CLC          | `0x23` |
+
 ### STC (Set Carry)
 
 Sets the carry flag.
+
+Size: 1 byte
+
+```c
+S.carry = 1;
+```
+
+| Instruction  | Byte 0 |
+|--------------|--------|
+| STC          | `0x26` |
 
 ### HLT (Halt)
 
 Halts the processor.
 
+Size: 1 byte
+
+| Instruction  | Byte 0 |
+|--------------|--------|
+| HLT          | `0x2B` |
+
 ### RTS (Return from Subroutine)
 
 Returns from a subroutine to the calling address.
+
+Size: 1 byte
+
+```c
+PC = Memory[SP + 0x100 + 1] | (Memory[SP + 0x100 + 2] << 8);
+SP += 2;
+```
+
+| Instruction  | Byte 0 |
+|--------------|--------|
+| RTS          | `0x3C` |
