@@ -74,6 +74,8 @@ So if X is 0 PC will be set to the reset vector at 0xFFFE - 0xFFFF
 |-------------|--------|
 | RST         | `0x00` |
 
+---
+
 ### MOV R,R (Move Register to Register)
 
 Transfers data from one register to another.
@@ -92,6 +94,8 @@ Regs[Arg0] = Regs[Arg1];
 | Instruction | Byte 0                | Byte 1 |
 |-------------|-----------------------|--------|
 | MOV R, R    | `0x01 \| (Arg0 << 5)` | `Arg1` |
+
+---
 
 ### MOV R,A (Move Register to Address)
 
@@ -112,6 +116,8 @@ Regs[Arg0] = *resolveAddress(Arg1);
 |-------------|-----------------------|--------|-----------|
 | MOV R, A    | `0x02 \| (Arg0 << 5)` | `Arg1` | Arguments for addressing mode |
 
+---
+
 ### MOV A,A (Move Address to Address)
 
 Transfers data between two memory addresses.
@@ -131,6 +137,8 @@ Arguments:
 |-------------|--------|---------------------|-----------|
 | MOV R, A    | `0x03` | `Arg1 \| Arg0 << 5` | Arguments for addressing modes (`Arg0` first) |
 
+---
+
 ### MOV A,R (Move Address to Register)
 
 Moves data from a memory address to a register.
@@ -149,6 +157,8 @@ Arguments:
 | Instruction | Byte 0                | Byte 1 | Byte 2... |
 |-------------|-----------------------|--------|-----------|
 | MOV R, A    | `0x04 \| (Arg1 << 5)` | `Arg0` | Arguments for addressing mode |
+
+---
 
 ### BRH flags, A (Branch on Flags)
 
@@ -171,6 +181,8 @@ if (S & Arg0) {
 |--------------|-----------------------|---------------------|
 | BRH flags, A | `0x05 \| (Arg0 << 5)` | `Arg1` in LE format |
 
+---
+
 ### DEX (Decrement X)
 
 Decrements the X index register by one.
@@ -184,6 +196,8 @@ X -= 1;
 | Instruction  | Byte 0 |
 |--------------|--------|
 | DEX          | `0x06` |
+
+---
 
 ### ADD R, A (Add Register and Address)
 
@@ -209,6 +223,8 @@ Regs[Arg0] = A + B;
 |--------------|-----------------------|--------|----------|
 | ADD R, A     | `0x08 \| (Arg0 << 5)` | `Arg1` | Arguments for addressing mode |
 
+---
+
 ### SUB R, A (Subtract Address from Register)
 
 Subtracts the value at a memory address from a register.
@@ -233,6 +249,8 @@ Regs[Arg0] = (A + ~B + 1);
 |--------------|-----------------------|--------|----------|
 | SUB R, A     | `0x09 \| (Arg0 << 5)` | `Arg1` | Arguments for addressing mode |
 
+---
+
 ### INX (Increment X)
 
 Increments the X register by one.
@@ -247,6 +265,8 @@ X += 1;
 |--------------|--------|
 | INX          | `0x0A` |
 
+---
+
 ### NOP (No Operation)
 
 Performs no operation and advances to the next instruction.
@@ -256,6 +276,8 @@ Size: 1 byte
 | Instruction  | Byte 0 |
 |--------------|--------|
 | NOP          | `0x0B` |
+
+---
 
 ### RSH R (Right Shift Register)
 
@@ -277,6 +299,8 @@ Regs[Arg0] = A >> 1;
 |--------------|--------|
 | RSH R        | `0x0C \| Arg0 << 5` |
 
+---
+
 ### LSH R (Left Shift Register)
 
 Shifts the bits in a register to the left.
@@ -296,6 +320,8 @@ Regs[Arg0] = A << 1;
 | Instruction  | Byte 0 |
 |--------------|--------|
 | LSH R        | `0x0D \| Arg0 << 5` |
+
+---
 
 ### ROR R (Rotate Right Register)
 
@@ -317,6 +343,8 @@ S.carry = A & 0x01;
 |--------------|--------|
 | ROR R        | `0x0E \| Arg0 << 5` |
 
+---
+
 ### ROL R (Rotate Left Register)
 
 Rotates the bits in a register to the left.
@@ -336,6 +364,8 @@ S.carry = A & 0x80;
 | Instruction  | Byte 0 |
 |--------------|--------|
 | ROL R        | `0x0F \| Arg0 << 5` |
+
+---
 
 ### ADD R, R (Add Register to Register)
 
@@ -361,6 +391,8 @@ Regs[Arg0] = A + B;
 |-------------|-----------------------|--------|
 | ADD R, R    | `0x10 \| (Arg0 << 5)` | `Arg1` |
 
+---
+
 ### XNOR R, R (XNOR Registers)
 
 Performs a bitwise XNOR operation on two registers and stores it in the first.
@@ -381,6 +413,8 @@ Regs[Arg0] = ~(A ^ B);
 | Instruction | Byte 0                | Byte 1 |
 |-------------|-----------------------|--------|
 | XNOR R, R   | `0x11 \| (Arg0 << 5)` | `Arg1` |
+
+---
 
 ### SUB R, R (Subtract Register from Register)
 
@@ -406,6 +440,8 @@ Regs[Arg0] = (A + ~B + 1);
 |-------------|-----------------------|--------|
 | SUB R, R    | `0x12 \| (Arg0 << 5)` | `Arg1` |
 
+---
+
 ### XOR R, R (XOR Registers)
 
 Performs a bitwise XOR operation on two registers and stores it in the first.
@@ -426,6 +462,8 @@ Regs[Arg0] = A ^ B;
 | Instruction | Byte 0                | Byte 1 |
 |-------------|-----------------------|--------|
 | XOR R, R    | `0x13 \| (Arg0 << 5)` | `Arg1` |
+
+---
 
 ### OR R, R (OR Registers)
 
@@ -448,6 +486,8 @@ Regs[Arg0] = A | B;
 |-------------|-----------------------|--------|
 | OR R, R     | `0x14 \| (Arg0 << 5)` | `Arg1` |
 
+---
+
 ### NOR R, R (NOR Registers)
 
 Performs a bitwise NOR operation on two registers and stores it in the first.
@@ -468,6 +508,8 @@ Regs[Arg0] = ~(A | B);
 | Instruction | Byte 0                | Byte 1 |
 |-------------|-----------------------|--------|
 | NOR R, R    | `0x15 \| (Arg0 << 5)` | `Arg1` |
+
+---
 
 ### NAND R, R (NAND Registers)
 
@@ -490,6 +532,8 @@ Regs[Arg0] = ~(A & B);
 |-------------|-----------------------|--------|
 | NAND R, R   | `0x16 \| (Arg0 << 5)` | `Arg1` |
 
+---
+
 ### AND R, R (AND Registers)
 
 Performs a bitwise AND operation on two registers and stores it in the first.
@@ -510,6 +554,8 @@ Regs[Arg0] = A & B;
 | Instruction | Byte 0                | Byte 1 |
 |-------------|-----------------------|--------|
 | AND R, R    | `0x17 \| (Arg0 << 5)` | `Arg1` |
+
+---
 
 ### ADC R, R (Add with Carry)
 
@@ -535,6 +581,8 @@ S.carry = (A + B + S.carry) > 0xFF;
 |-------------|-----------------------|--------|
 | ADC R, R    | `0x18 \| (Arg0 << 5)` | `Arg1` |
 
+---
+
 ### PHR R (Push Register)
 
 Pushes the value of a register onto the stack.
@@ -553,6 +601,8 @@ SP--;
 | Instruction  | Byte 0 |
 |--------------|--------|
 | PHR R        | `0x19 \| Arg0 << 5` |
+
+---
 
 ### SBC R, R (Subtract with Carry)
 
@@ -578,6 +628,8 @@ S.negative = !S.carry && !S.zero;
 |-------------|-----------------------|--------|
 | SBC R, R    | `0x1A \| (Arg0 << 5)` | `Arg1` |
 
+---
+
 ### PLR R (Pull Register)
 
 Pulls a value from the stack into a register.
@@ -596,6 +648,8 @@ Regs[Arg0] = Memory[SP + 0x100];
 | Instruction  | Byte 0 |
 |--------------|--------|
 | PHR R        | `0x1B \| Arg0 << 5` |
+
+---
 
 ### JSR A (Jump to Subroutine)
 
@@ -618,6 +672,8 @@ PC = Arg0;
 | Instruction  | Byte 0 | Byte 1-2            |
 |--------------|--------|---------------------|
 | JSR A        | `0x1C` | `Arg0` in LE format |
+
+---
 
 ### CMP R,R (Compare Registers)
 
@@ -642,6 +698,8 @@ S.zero = (A - B) == 0;
 |-------------|-----------------------|--------|
 | CMP R, R    | `0x1D \| (Arg0 << 5)` | `Arg1` |
 
+---
+
 ### DEC R (Decrement Register)
 
 Decrements the value of a register by one.
@@ -659,6 +717,8 @@ Regs[Arg0] -= 1;
 | Instruction  | Byte 0 |
 |--------------|--------|
 | DEC R        | `0x1E \| Arg0 << 5` |
+
+---
 
 ### INC R (Increment Register)
 
@@ -678,6 +738,8 @@ Regs[Arg0] += 1;
 |--------------|--------|
 | INC R        | `0x1F \| Arg0 << 5` |
 
+---
+
 ### JMP A (Jump to Address)
 
 Jumps to a specified memory address.
@@ -696,6 +758,8 @@ PC = Arg0;
 |--------------|--------|---------------------|
 | JMP A        | `0x20` | `Arg0` in LE format |
 
+---
+
 ### CLC (Clear Carry)
 
 Clears the carry flag.
@@ -709,6 +773,8 @@ S.carry = 0;
 | Instruction  | Byte 0 |
 |--------------|--------|
 | CLC          | `0x23` |
+
+---
 
 ### STC (Set Carry)
 
@@ -724,6 +790,8 @@ S.carry = 1;
 |--------------|--------|
 | STC          | `0x26` |
 
+---
+
 ### HLT (Halt)
 
 Halts the processor.
@@ -733,6 +801,8 @@ Size: 1 byte
 | Instruction  | Byte 0 |
 |--------------|--------|
 | HLT          | `0x2B` |
+
+---
 
 ### RTS (Return from Subroutine)
 
