@@ -35,4 +35,6 @@ The CPU is built using 74-series logic, with a microcoded control unit stored in
 
 ## License
 
-[CC BY_SA 4.0](LICENSE)
+This project is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0).  
+See the [LICENSE](LICENSE) file for more information.  
+More info at: [https://creativecommons.org/licenses/by-sa/4.0/](https://creativecommons.org/licenses/by-sa/4.0/)
