@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="None" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>B865 Docs</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Home";
+        var mkdocs_page_input_path = "index.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="." class="icon icon-home"> B865 Docs
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Home</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#specifications">Specifications</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#instruction-set">Instruction Set</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#memory-map">Memory Map</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-it-works">How It Works</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="instruction-set/">Instruction set</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="addressing-modes/">Addressing modes</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">B865 Docs</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Home</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="b865-8-bit-breadboard-computer">B865: 8-bit Breadboard Computer</h1>
+<p>The <strong>B865</strong> is a homebrew 8-bit computer built on a breadboard, featuring a custom CPU, 64KB of addressable memory, and 7 8-bit general-purpose registers (2 can be used for indexing), 8-bit stack pointer, 16-bit program counter.</p>
+<h2 id="specifications">Specifications</h2>
+<ul>
+<li><strong>Data Bus</strong>: 8-bit</li>
+<li><strong>Address Bus</strong>: 16-bit</li>
+<li><strong>Registers</strong>:</li>
+<li>8-bit: A, SP, X, Y, R0, R1, R2, R3</li>
+<li>16-bit: PC</li>
+<li>Status register(S): (3-bit: Carry, Zero, Negative)</li>
+<li><strong>Memory</strong>: 64KB (32k ROM + 32k RAM)</li>
+</ul>
+<h2 id="instruction-set">Instruction Set</h2>
+<p>Full <a href="instruction-set/">Instruction Set Documentation</a></p>
+<h2 id="memory-map">Memory Map</h2>
+<table>
+<thead>
+<tr>
+<th>Address Range</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x0000-0x7FFF</td>
+<td>RAM</td>
+</tr>
+<tr>
+<td>0x8000-0xFFFF</td>
+<td>ROM</td>
+</tr>
+</tbody>
+</table>
+<p>Pheripherials registers in RAM:</p>
+<table>
+<thead>
+<tr>
+<th>Address Range</th>
+<th>Pheripherial</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x0200-0x0207</td>
+<td>GPIO</td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-it-works">How It Works</h2>
+<p>The CPU is built using 74-series logic, with a microcoded control unit stored in EEPROM. It executes instructions from ROM, with RAM mapped to lower memory for stack and variable storage.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="instruction-set/" class="btn btn-neutral float-right" title="Instruction set">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+      <span><a href="instruction-set/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 1.6.1
+Build Date UTC : 2025-08-10 19:38:13.045254+00:00
+-->
