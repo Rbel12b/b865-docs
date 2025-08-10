@@ -1,17 +1,32 @@
-name: Trigger Docs Deploy
+name: Deploy MkDocs to GitHub Pages
+
 on:
   push:
     branches:
       - main
 
+
+permissions:
+  contents: write  # needed to push to gh-pages
+
 jobs:
-  trigger:
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Trigger Deploy in target repo
+       # 1. Checkout the repository containing the workflow
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
         run: |
-          curl -X POST \
-            -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer ${{ secrets.DEPLOY_TOKEN }}" \
-            https://api.github.com/repos/b865-computer/b865-computer.github.io/dispatches \
-            -d '{"event_type":"deploy_docs"}'
+          python -m pip install --upgrade pip
+          pip install mkdocs
+
+      - name: Deploy to GitHub Pages
+        run: mkdocs gh-deploy --force --config-file ./mkdocs.yml
